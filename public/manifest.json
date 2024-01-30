@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Finsync",
+  "name": "Finsync: Maneja tus finanzas personales",
   "icons": [
     {
       "src": "favicon.ico",
