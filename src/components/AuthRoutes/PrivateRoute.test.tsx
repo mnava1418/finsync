@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PrivateRoute from '.';
+import PrivateRoute from './PrivateRoute';
 import { Navigate } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
@@ -7,7 +7,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 test('user is authenticated', () => {
-    jest.spyOn(require('../../../services/authService'), 'isAuthenticated').mockReturnValue(true);
+    jest.spyOn(require('../../services/authService'), 'isAuthenticated').mockReturnValue(true);
 
     render(
         <PrivateRoute>
@@ -20,7 +20,7 @@ test('user is authenticated', () => {
 });
 
 test('user is not authenticated', () => {
-    jest.spyOn(require('../../../services/authService'), 'isAuthenticated').mockReturnValue(false);
+    jest.spyOn(require('../../services/authService'), 'isAuthenticated').mockReturnValue(false);
 
     render(
         <PrivateRoute>
