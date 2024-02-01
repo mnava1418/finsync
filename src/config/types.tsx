@@ -14,6 +14,9 @@ export type SignUpType = {
     validated: boolean,
     password: string,
     confirmPassword: string,
+    passwordsMatch: boolean,
+    setValidated: (validated: boolean) => void,
+    setPasswordsMatch: (passwordsMatch: boolean) => void,
     setPassword: (password: string) => void
     setConfirmPassword: (confirmPassword: string) => void
 }
