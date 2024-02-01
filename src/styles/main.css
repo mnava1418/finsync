@@ -1,0 +1,87 @@
+:root {
+  --fs-blue-dark: #253b6e;
+  --fs-blue-medium: #324f94;
+  --fx-blue-light: #3f64ba;
+  --fs-white: #ffffff;
+  --fs-grey-light: #e6e6e6;
+  --fs-grey-dark: #6c757d;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--fs-grey-dark);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  text-decoration: none !important;
+  color: var(--fs-blue-dark) !important;
+}
+
+a:hover {
+  color: var(--fs-blue-dark) !important;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: var(--fs-blue-dark);
+}
+
+/*VIEWS*/
+.fs-full-screen {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/*FORMS*/
+.fs-form {
+  padding: 32px;
+  font-weight: 500;
+}
+
+.fs-form-light {
+  background-color: var(--fs-white);
+  color: var(--fs-grey-dark);
+}
+
+.fs-form-auth {
+  width: 90%;
+  max-width: 500px;
+}
+
+/*BUTTONS*/
+.fs-btn {
+  text-align: center !important;
+  font-weight: 500 !important;
+  border-radius: 0px !important;
+}
+
+.fs-btn:hover {
+  transform: scale(1.01);
+}
+
+.fs-btn-primary {
+  background-color: var(--fs-blue-dark) !important;
+  border-color: var(--fs-blue-dark) !important;
+}
+
+/*IMG*/
+.fs-bg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/*LOGOS*/
+.fs-icon {
+  background-image: url('../img/logo1.png');
+}
