@@ -5,7 +5,7 @@ export type ButtonType = {
 
 export type CustomButtonType = {
     variant: 'primary',
-    text: string,
+    label: string,
     style?: {},
     onClick: () => void
 }
