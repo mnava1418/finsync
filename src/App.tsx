@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import PrivateRoute from './components/auth/PrivateRoute'
-import PublicRoute from './components/auth/PublicRoute'
+import PrivateRoute from './components/authRoutes/PrivateRoute'
+import PublicRoute from './components/authRoutes/PublicRoute'
 import Login from './components/Login';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
