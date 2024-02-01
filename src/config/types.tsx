@@ -9,3 +9,11 @@ export type CustomButtonType = {
     style?: {},
     onClick: () => void
 }
+
+export type SignUpType = {
+    validated: boolean,
+    password: string,
+    confirmPassword: string,
+    setPassword: (password: string) => void
+    setConfirmPassword: (confirmPassword: string) => void
+}
