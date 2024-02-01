@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import PrivateRoute from './components/authRoutes/PrivateRoute'
-import PublicRoute from './components/authRoutes/PublicRoute'
-import Login from './components/Login';
-import Home from './components/Home';
-import NotFound from './components/NotFound';
+import PrivateRoute from './components/AuthRoutes/PrivateRoute'
+import PublicRoute from './components/AuthRoutes/PublicRoute'
+import Login from './components/pages/Login';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
 import SignUp from './components/pages/SignUp';
 
 import { PATHS } from './config/constants';
