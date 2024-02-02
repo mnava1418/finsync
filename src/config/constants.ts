@@ -1,4 +1,4 @@
-import { ButtonType } from "./types"
+import { ButtonType } from "../types/buttonTypes"
 
 export const PATHS = {
     home: '/',
