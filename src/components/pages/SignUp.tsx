@@ -3,7 +3,7 @@ import AuthForm from '../AuthForm'
 import { PATHS } from '../../config/constants'
 import SignUpForm from '../SignUpForm'
 import { signUp } from '../../services/authService'
-import { SignUpFormDataType, SignUpFormValidationsType } from '../../config/types'
+import { SignUpFormDataType, SignUpFormValidationsType } from '../../types/signUpTypes'
 
 const SignUp = () => {
     

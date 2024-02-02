@@ -1,5 +1,5 @@
 import Form from 'react-bootstrap/Form'
-import { SignUpType } from '../config/types'
+import { SignUpType } from '../types/signUpTypes'
 
 const SignUpForm = ({validated, formData, formValidations, setFormData}: SignUpType) => {
     const {confirmPassword} = formData

@@ -1,17 +1,3 @@
-import { ChangeEvent, Dispatch, SetStateAction} from 'react'
-
-export type ButtonType = {
-    primary: string,
-    [key: string]: string
-}
-
-export type CustomButtonType = {
-    variant: 'primary',
-    label: string,
-    style?: {},
-    onClick: () => void
-}
-
 export type SignUpFormDataType = {
     email: string,
     password: string,

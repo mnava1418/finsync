@@ -1,5 +1,5 @@
 import CustomButton from "../CustomButton"
-import { CustomButtonType } from "../../config/types"
+import { CustomButtonType } from "../../types/buttonTypes"
 
 const Button = ({variant, label, onClick}: CustomButtonType) => {
     return(
