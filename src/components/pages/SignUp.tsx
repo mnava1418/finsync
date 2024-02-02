@@ -1,26 +1,49 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import AuthForm from '../AuthForm'
 import { PATHS } from '../../config/constants'
 import SignUpForm from '../SignUpForm'
+import { signUp } from '../../services/authService'
+import { SignUpFormDataType, SignUpFormValidationsType } from '../../config/types'
 
 const SignUp = () => {
-    const [validated, setValidated] = useState(false)
-    const [passwordsMatch, setPasswordsMatch] = useState(false)
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    
+    const [formData, setFormData] = useState<SignUpFormDataType>({
+        email: '', 
+        password: '', 
+        confirmPassword: ''
+    })
+    
+    const [formValidations, setFormValidations] = useState<SignUpFormValidationsType>({
+        validated: false, 
+        passwordsMatch: false, 
+        confirmPasswordError: ''
+    })
+
+    const {email, password, confirmPassword} = formData
+    const {validated, passwordsMatch} = formValidations
+
+    const comparePasswords = useCallback((firstPassword: string, secondPassword: string) => {
+        if(firstPassword === secondPassword) {
+            setFormValidations({validated: false, passwordsMatch: true, confirmPasswordError: ''})
+        }  else {
+            setFormValidations({validated: false, passwordsMatch: false, confirmPasswordError: 'Passwords don´t match.'})
+        }
+    }, []);
+
+    useEffect(() => {
+        comparePasswords(password, confirmPassword)
+    }, [password, confirmPassword, comparePasswords])
 
     const handleSubmit = () => {
-        const signUpForm = document.getElementById('signUpForm') as HTMLInputElement
-
         if(passwordsMatch) {
+            const signUpForm = document.getElementById('signUpForm') as HTMLInputElement
             if (signUpForm.checkValidity()) {
-                console.log(password)
-                console.log(confirmPassword)
+                signUp(email, password)
             }
 
-            setValidated(true);
+            setFormValidations({...formValidations, validated: true})
         } else {
-            setValidated(false);
+            setFormValidations({...formValidations, validated: false})
         }
     }
 
@@ -30,13 +53,9 @@ const SignUp = () => {
                 <AuthForm.Body>
                     <SignUpForm 
                         validated={validated} 
-                        password={password}
-                        confirmPassword={confirmPassword}
-                        passwordsMatch={passwordsMatch}
-                        setValidated={setValidated}
-                        setPassword={setPassword}
-                        setConfirmPassword={setConfirmPassword} 
-                        setPasswordsMatch={setPasswordsMatch}
+                        setFormData={setFormData} 
+                        formData={formData}
+                        formValidations={formValidations}
                     />
                 </AuthForm.Body>
                 <AuthForm.Button variant='primary' label='Sign Up' onClick={handleSubmit} />

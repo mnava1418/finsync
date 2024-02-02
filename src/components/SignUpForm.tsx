@@ -1,42 +1,25 @@
-import { useState, ChangeEvent } from 'react'
 import Form from 'react-bootstrap/Form'
 import { SignUpType } from '../config/types'
 
-const SignUpForm = ({validated, password, confirmPassword, passwordsMatch, setValidated, setPassword, setConfirmPassword, setPasswordsMatch}: SignUpType) => {
-    const [confirmPasswordError, setConfirmPasswordError] = useState('Mandatory field.')
+const SignUpForm = ({validated, formData, formValidations, setFormData}: SignUpType) => {
+    const {confirmPassword} = formData
+    const {passwordsMatch, confirmPasswordError} = formValidations
 
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const currentPassword = e.target.value
-        let passwordToCompare = ''
-
-        setValidated(false)
-
-        if(e.target.id === 'signUpPassword') {
-            setPassword(currentPassword)
-            passwordToCompare = confirmPassword
-            
-        } else if(e.target.id === 'signUpConfirm') {
-            setConfirmPassword(e.target.value)
-            passwordToCompare = password
-        }
-
-        comparePasswords(currentPassword, passwordToCompare)
-    }
-
-    const comparePasswords = (passwordA: string, passwordB: string) => {
-        if(passwordA === passwordB) {
-            setPasswordsMatch(true)
-        }  else {
-            setPasswordsMatch(false)
-            setConfirmPasswordError('Passwords don´t match.')
-        }
+    const updateFormData = (key: string, value: string) => {
+        setFormData({...formData, [key]: value})
     }
 
     return(
         <Form id='signUpForm' noValidate validated={validated}  style={{width: '100%'}}>
             <Form.Group controlId="signUpEmail"  style={{marginBottom: '32px'}}>
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter your email" autoComplete='off' required />
+                <Form.Control 
+                    required
+                    type="email" 
+                    placeholder="Enter your email" 
+                    autoComplete='off'  
+                    onChange={(e) => {updateFormData('email', e.target.value)}}
+                />
                 <Form.Control.Feedback type="invalid">Invalid email.</Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="signUpPassword"  style={{marginBottom: '32px'}}>
@@ -46,7 +29,7 @@ const SignUpForm = ({validated, password, confirmPassword, passwordsMatch, setVa
                     type="password" 
                     placeholder="Enter your password" 
                     autoComplete='off' 
-                    onChange={handleOnChange}
+                    onChange={(e) => {updateFormData('password', e.target.value)}}
                 />
                 <Form.Control.Feedback type="invalid">Mandatory field.</Form.Control.Feedback>
             </Form.Group>
@@ -59,7 +42,7 @@ const SignUpForm = ({validated, password, confirmPassword, passwordsMatch, setVa
                     type="password" 
                     placeholder="Confirm your password" 
                     autoComplete='off'  
-                    onChange={handleOnChange}
+                    onChange={(e) => {updateFormData('confirmPassword', e.target.value)}}
                 />
                 <Form.Control.Feedback type="invalid">{confirmPasswordError}</Form.Control.Feedback>
             </Form.Group>

@@ -1,3 +1,5 @@
+import { ChangeEvent, Dispatch, SetStateAction} from 'react'
+
 export type ButtonType = {
     primary: string,
     [key: string]: string
@@ -10,13 +12,21 @@ export type CustomButtonType = {
     onClick: () => void
 }
 
+export type SignUpFormDataType = {
+    email: string,
+    password: string,
+    confirmPassword: string
+}
+
+export type SignUpFormValidationsType = {
+    validated: boolean, 
+    passwordsMatch: boolean, 
+    confirmPasswordError: string
+}
+
 export type SignUpType = {
     validated: boolean,
-    password: string,
-    confirmPassword: string,
-    passwordsMatch: boolean,
-    setValidated: (validated: boolean) => void,
-    setPasswordsMatch: (passwordsMatch: boolean) => void,
-    setPassword: (password: string) => void
-    setConfirmPassword: (confirmPassword: string) => void
+    formData: SignUpFormDataType,
+    formValidations: SignUpFormValidationsType,
+    setFormData: (formData: SignUpFormDataType) => void
 }
