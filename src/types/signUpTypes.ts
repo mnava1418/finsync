@@ -6,8 +6,16 @@ export type SignUpFormDataType = {
 
 export type SignUpFormValidationsType = {
     validated: boolean, 
-    passwordsMatch: boolean, 
+    passwordsMatch: boolean,
+    isStrongPassword: boolean,
     confirmPasswordError: string
+    strongPasswordError: string
+}
+
+export type SignUpFormActionType = {
+    type: 'isMatched' | 'isUnmatched' | 'isStrong' | 'isWeak' | 'setValidated',
+    message?: string,
+    validated?: boolean
 }
 
 export type SignUpType = {
