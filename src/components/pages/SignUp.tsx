@@ -1,49 +1,67 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 import AuthForm from '../AuthForm'
 import { PATHS } from '../../config/constants'
 import SignUpForm from '../SignUpForm'
 import { signUp } from '../../services/authService'
-import { SignUpFormDataType, SignUpFormValidationsType } from '../../types/signUpTypes'
+import useSignUp from '../../hooks/useSignUp'
+import zxcvbn from 'zxcvbn'
 
 const SignUp = () => {
+    const {
+        formData, setFormData,
+        formValidations, dispatch
+    } = useSignUp()
     
-    const [formData, setFormData] = useState<SignUpFormDataType>({
-        email: '', 
-        password: '', 
-        confirmPassword: ''
-    })
-    
-    const [formValidations, setFormValidations] = useState<SignUpFormValidationsType>({
-        validated: false, 
-        passwordsMatch: false, 
-        confirmPasswordError: ''
-    })
-
     const {email, password, confirmPassword} = formData
-    const {validated, passwordsMatch} = formValidations
+    const {validated, passwordsMatch, isStrongPassword} = formValidations
+
+    const currentPassword = useRef('')
 
     const comparePasswords = useCallback((firstPassword: string, secondPassword: string) => {
         if(firstPassword === secondPassword) {
-            setFormValidations({validated: false, passwordsMatch: true, confirmPasswordError: ''})
+            dispatch({type: 'isMatched'})
         }  else {
-            setFormValidations({validated: false, passwordsMatch: false, confirmPasswordError: 'Passwords don´t match.'})
+            dispatch({type: 'isUnmatched'})
         }
+        // eslint-disable-next-line
     }, []);
+
+    const checkPasswordStrength = useCallback(() => {
+        const validationResult = zxcvbn(currentPassword.current)
+
+        if(validationResult.score <= 2) {
+            const message = validationResult.feedback.suggestions ? validationResult.feedback.suggestions[0] : 'Mandatory field.'
+            dispatch({type: 'isWeak', message})
+        } else {
+            dispatch({type: 'isStrong'})
+        }
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
         comparePasswords(password, confirmPassword)
-    }, [password, confirmPassword, comparePasswords])
+        
+        if(password !== currentPassword.current) {
+            currentPassword.current = password
+            checkPasswordStrength()
+        }
+
+    }, [password, confirmPassword, comparePasswords, checkPasswordStrength])
 
     const handleSubmit = () => {
-        if(passwordsMatch) {
+        if(passwordsMatch && isStrongPassword) {
             const signUpForm = document.getElementById('signUpForm') as HTMLInputElement
             if (signUpForm.checkValidity()) {
                 signUp(email, password)
             }
 
-            setFormValidations({...formValidations, validated: true})
+            dispatch({type: 'setValidated', validated: true})
         } else {
-            setFormValidations({...formValidations, validated: false})
+            if(password.length <= 0 || confirmPassword.length <=0 ) {
+                dispatch({type: 'setValidated', validated: true})    
+            } else {
+                dispatch({type: 'setValidated', validated: false})
+            }
         }
     }
 

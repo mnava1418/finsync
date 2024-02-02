@@ -2,8 +2,8 @@ import Form from 'react-bootstrap/Form'
 import { SignUpType } from '../types/signUpTypes'
 
 const SignUpForm = ({validated, formData, formValidations, setFormData}: SignUpType) => {
-    const {confirmPassword} = formData
-    const {passwordsMatch, confirmPasswordError} = formValidations
+    const {confirmPassword, password} = formData
+    const {passwordsMatch, isStrongPassword, confirmPasswordError, strongPasswordError} = formValidations
 
     const updateFormData = (key: string, value: string) => {
         setFormData({...formData, [key]: value})
@@ -26,12 +26,14 @@ const SignUpForm = ({validated, formData, formValidations, setFormData}: SignUpT
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
                     required
+                    isInvalid={password.length > 0 && !isStrongPassword}
+                    isValid={password.length > 0 && isStrongPassword}
                     type="password" 
                     placeholder="Enter your password" 
                     autoComplete='off' 
                     onChange={(e) => {updateFormData('password', e.target.value)}}
                 />
-                <Form.Control.Feedback type="invalid">Mandatory field.</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{strongPasswordError}</Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="signUpConfirm"  style={{marginBottom: '32px'}}>
                 <Form.Label>Confirm Password</Form.Label>
