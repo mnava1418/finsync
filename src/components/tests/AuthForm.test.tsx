@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Home from '../../pages/Home';
-import PublicRoute from '../../AuthRoutes/PublicRoute';
-import AuthForm from '..';
+import AuthForm from '../AuthForm';
 
 test('generate an AuthForm', () => {
     render(
