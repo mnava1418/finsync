@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from '../AuthRoutes/PrivateRoute';
 import { Navigate } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PublicRoute from './PublicRoute';
+import PublicRoute from '../AuthRoutes/PublicRoute';
 import { Navigate } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
